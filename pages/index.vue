@@ -1,0 +1,65 @@
+<template>
+  <div class="home">
+    <v-container class="myContainer">
+      <v-layout>
+        <v-container class="hidden-xs-only">
+          <img src="@/static/chibi-1.png" class="chibi" alt="PianoCat sleepy chibi" />
+      </v-container>
+          <v-flex xs12 sm12 lg8>
+            <v-layout column>
+              <v-flex mb-4>
+                <h1 :class="{'display-2': $vuetify.breakpoint.smAndDown, 'display-3': $vuetify.breakpoint.mdAndUp}" style="line-height: 1 !important; " v-html="homedata[0].headline"></h1>
+                <div class="border white mt-4 mb-4"></div>
+                <span class="subheading" v-html="homedata[0].description"></span>
+              </v-flex>
+              <v-flex v-if="covers">
+                <card :cover="covers[covers.length - 1]" :VideoStatistics="VideoStatistics"><span slot="recent" class="primary ribbon color-3">Most recent</span></card>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+</template>
+<style>
+  .chibi {
+    width: 100%;
+    max-width: 385px;
+  }
+</style>
+<script>
+import Card from '@/components/Card'
+export default {
+  name: 'Home',
+  components: {
+    Card
+  },
+  head() {
+    return {
+      title: 'PianoCat | video game sheet music for piano',
+      meta: [
+        { name: 'description', content: 'Download free video game sheet music for piano and watch me playing the arrangements!'}
+      ]
+    }
+  },
+  async fetch ({ store }) {
+    await store.dispatch('getHomedata')
+  },
+  data() {
+    return {
+      search: ''
+    }
+  },
+  computed: {
+    covers() {
+      return this.$store.getters.allCovers
+    },
+    VideoStatistics() {
+      return this.$store.getters.allVideostatistics
+    },
+    homedata() {
+      return this.$store.getters.allHomedata
+    }
+  }
+}
+</script>
