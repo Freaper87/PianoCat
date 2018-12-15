@@ -47,13 +47,15 @@ const createStore = () => {
         headline: '<b>Video game<br>sheet music</b>',
         description: '-'
       }],
-      patreon: []
+      patreon: [],
+      error: ''
     },
     getters: {
     	allCovers: state => state.covers,
       allHomedata: state => state.homedata,
       allVideostatistics: state => state.allVideoStatistics,
-      getsingleCover: state => state.singlecover
+      getsingleCover: state => state.singlecover,
+      getError: state => state.error
     },
     mutations: {
     	GET_COVERS: (state, covers) => {
@@ -67,34 +69,51 @@ const createStore = () => {
       },
       GET_SINGLECOVER: (state, singlecover) => {
         state.singlecover = singlecover
+      },
+      GET_ERROR: (state, error) => {
+        state.error = error
       }
     },
     actions: {
-     /* nuxtServerInit ({ commit }, { req }) {
-        if (req.session && req.session.authUser) {
-          commit('SET_USER', req.session.authUser)
-        }
-      },*/
-    	getCovers({ commit }) {
-    		axios.get('http://localhost/vue-pianocat/api/covers').then(response => {
+   	getCovers({ commit }) {
+     		axios.get(process.env.url + '/covers').then(response => {
   				commit('GET_COVERS', response.data)
-  		  }).then(() => {
+          commit('GET_ERROR', 'covers loaded')
+  		  })
+        .catch((error) => {
+          commit('GET_ERROR', 'Could not load covers')
+        })
+        .then(() => {
           var allVideoIDs = this.state.covers.map((cover) => {
             return cover.video
           })
           axios.get('https://www.googleapis.com/youtube/v3/videos?part=statistics&id=' + allVideoIDs + '&key=' + process.env.key).then(response => {
             commit('GET_VIDEOINFO', response.data.items)
           })
+          .catch((error) => {
+            commit('GET_ERROR', 'could not load YouTube statistics')
+          })
         })
+       
     	},
       async getHomedata({ commit }) {
-        const { data } = await axios.get('http://localhost/vue-pianocat/api/home')
+        try {
+        const { data } = await axios.get(process.env.url + '/home')
           commit('GET_HOMEDATA', data)
+          commit('GET_ERROR', 'Homepage data loaded')
+        } catch (error) {
+            commit('GET_ERROR', 'could not load homepage data')
+          }
       },
       async getsingleCover({ commit }) {
+        try {
         let SlugVar = this.$router.history.current.path
-        const { data } = await axios.get('http://localhost/vue-pianocat/api/covers' + SlugVar)
-          commit('GET_SINGLECOVER', data[0])
+        const { data } = await axios.get(process.env.url + '/covers' + SlugVar)
+          commit('GET_SINGLECOVER', data[0]) 
+          commit('GET_ERROR', 'Single cover loaded')
+        } catch (error) {
+          commit('GET_ERROR', 'could not load cover')
+        }
       }
     }
   })

@@ -14,6 +14,7 @@
           <v-spacer></v-spacer>
           <div>footer</div>
         </v-footer>
+        <v-snackbar v-model="snackbar" bottom>{{ this.$store.getters.getError }} <v-btn color="pink" flat @click="snackbar = false">Close</v-btn></v-snackbar>
        <!-- <v-dialog v-model="dialog" dark class="video-dialog" lazy>
         <div class="shine"><iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" v-bind:src="`//www.youtube.com/embed/${this.$store.modal}?autoplay=0&amp;rel=0`"></iframe></div>
       </v-dialog> -->
@@ -122,6 +123,11 @@ export default {
   components: {
     Navigation,
     CardList
+  },
+  data () {
+    return {
+      snackbar: true
+    }
   },
   mounted() {
     this.$store.dispatch('getCovers')

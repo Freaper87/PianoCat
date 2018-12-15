@@ -9,7 +9,8 @@ module.exports = {
   ** Headers of the page
   */
   env: {
-    key: process.env.VUE_APP_KEY
+    key: process.env.VUE_APP_KEY,
+    url: process.env.VUE_API_URL
   },
   head: {
     htmlAttrs: {
@@ -24,7 +25,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'}
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,600|Material+Icons|Pacifico|Raleway'}
     ]
   },
   
