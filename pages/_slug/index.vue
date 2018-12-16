@@ -80,10 +80,10 @@
             </v-layout>
             <v-container grid-list-md fluid>
               <v-layout row wrap :class="{'ml-0 mr-5': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}">
-                <v-flex xs6 sm4 md3 mb-3  v-for="(patron, index) in cover.patrons.slice().reverse()" :key="index"  d-flex>
-                  <v-layout align-center>
+                <v-flex xs6 sm4 md3 mb-3  v-for="(patron, index) in cover.patrons.slice().reverse()" :key="index">
+                  <v-layout align-center nowrap>
                     <v-img :src="`https://c8.patreon.com/2/50/` + patron.patronid" class="patron-img" alt="supporting patron" aspect-ratio="1" contain max-width="50px" max-height="50px"/>
-                    <span>{{patron.name}}</span>
+                    <v-flex xs8>{{patron.name}}</v-flex>
                   </v-layout>
                 </v-flex>
               </v-layout>
@@ -138,7 +138,7 @@ export default {
 		return {
 			title: this.cover.metatitle,
 			meta: [
-				{ name: 'description', content: this.cover.metadescription}
+				{ hid: 'description', name: 'description', content: this.cover.metadescription }
 			]
 		}
 	},

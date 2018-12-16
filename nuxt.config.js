@@ -21,7 +21,6 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'fb:admins', content: '100002845722084' },
-      { name: 'description', content: 'Download free video game sheet music for piano and watch me playing the arrangements!' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -69,7 +68,7 @@ module.exports = {
 
   generate: {
     routes: function() {
-      return axios.get('http://localhost/vue-pianocat/api/covers/')
+      return axios.get(process.env.url + '/covers/')
       .then(res => {
           return res.data.map((myslug) => {
             return '/' + myslug.slug

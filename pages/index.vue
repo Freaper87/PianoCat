@@ -36,9 +36,9 @@ export default {
   },
   head() {
     return {
-      title: 'PianoCat | video game sheet music for piano',
+      title: this.homedata[0].metatitle,
       meta: [
-        { name: 'description', content: 'Download free video game sheet music for piano and watch me playing the arrangements!'}
+        { hid: 'description', name: 'description', content: this.homedata[0].metadescription }
       ]
     }
   },
