@@ -142,7 +142,7 @@ export default {
 	      } else {*/
         return this.covers.filter(cover => {
           return cover.title.toLowerCase().match(this.search.toLowerCase())
-        })
+        }).reverse()
       } else {
         return this.covers
       }

@@ -124,9 +124,13 @@ export default {
     Navigation,
     CardList
   },
-  data () {
-    return {
-      snackbar: true
+  computed: {
+    snackbar() {
+      if (this.$store.getters.getError === '') {
+        return false
+      } else {
+      return true
+      }
     }
   },
   mounted() {

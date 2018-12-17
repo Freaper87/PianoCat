@@ -78,7 +78,6 @@ const createStore = () => {
    	getCovers({ commit }) {
      		axios.get(process.env.url + '/covers').then(response => {
   				commit('GET_COVERS', response.data)
-          commit('GET_ERROR', 'covers loaded')
   		  })
         .catch((error) => {
           commit('GET_ERROR', 'Could not load covers')
@@ -100,7 +99,6 @@ const createStore = () => {
         try {
         const { data } = await axios.get(process.env.url + '/home')
           commit('GET_HOMEDATA', data)
-          commit('GET_ERROR', 'Homepage data loaded')
         } catch (error) {
             commit('GET_ERROR', 'could not load homepage data')
           }
@@ -110,7 +108,6 @@ const createStore = () => {
         let SlugVar = this.$router.history.current.path
         const { data } = await axios.get(process.env.url + '/covers' + SlugVar)
           commit('GET_SINGLECOVER', data[0]) 
-          commit('GET_ERROR', 'Single cover loaded')
         } catch (error) {
           commit('GET_ERROR', 'could not load cover')
         }
