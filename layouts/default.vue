@@ -97,7 +97,7 @@ a {
 }
 
 .border {
-  width: 200px;
+  width: 220px;
   height: 6px;
   background-color: #303c74;
   display: block;

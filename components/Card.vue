@@ -4,9 +4,11 @@
       <v-card class="full-height" dark>
         <slot name="recent"></slot>
         <v-img v-if="cover.video" v-bind:src="'https://img.youtube.com/vi/' + videoID + '/hqdefault.jpg'" v-bind:alt="cover.title" aspect-ratio="1.42" class="play-video" :class="{'shine': !cover.id}">
-          <div class="play-video-transparent">
-          	<v-btn color="primary" :to="'/' + cover.slug">Sheet music</v-btn>
-          </div>
+          <nuxt-link class="play-video-transparent" :to="'/' + cover.slug">
+            <v-layout justify-center align-center full-height>
+          	 <v-btn color="primary" :to="'/' + cover.slug">Sheet music</v-btn>
+            </v-layout>
+          </nuxt-link>
         </v-img>
         <v-img v-else aspect-ratio="1.62" class="play-video shine">
         	<h3>Loading</h3>
@@ -104,7 +106,7 @@
 
 .play-video-transparent {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 64px);
   position: absolute;
   opacity: 0;
   background-color: rgba(48, 60, 116, .76);

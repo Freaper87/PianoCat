@@ -69,10 +69,10 @@
               </v-flex>
             </v-layout>
             <div v-if="cover.patrons">
-            <v-layout pl-5 pr-5>
+            <v-layout :class="{'ml-0 mr-5': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}">
               <v-container>
                 <v-flex xs12 mb-4 align-self-center justify-self-center>
-                  <h2 class="title primary--text">Supporting Patrons</h2>
+                  <h2 class="title primary--text"><span class="font-weight-bold patreon--text">{{ countPatrons }}</span> Supporting Patrons</h2>
 
                 </v-flex>
                 <div class="border"></div>
@@ -168,28 +168,18 @@ export default {
     },
     path() {
       return this.$route.name
+    },
+    countPatrons (){
+      return this.cover.patrons.length
     }
   },
+  watch: {
+     path(newValue) {
+            this.$store.dispatch('getsingleCover')
+        }
+    },
   mounted() {
   	this.$store.dispatch('getsingleCover')
-  },
-  	watch: {
-	   path(newValue) {
-	          this.$store.dispatch('getsingleCover')
-	      }
-    },
-  	methods: {
-  		countPatrons: function(){
-
-		  let total = [];
-
-		  Object.entries(this.cover.patrons).forEach(([key, val]) => {
-		      total.push(val.price) // the value of the current key.
-		  });
-		  console.log(total.reduce(function(total, num){ return total + num }, 0));
-		  return total.reduce(function(total, num){ return total + num }, 0);
-
-		}
-  	}
+  }
 }
 </script>

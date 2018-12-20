@@ -2,17 +2,15 @@
   <div class="home">
     <v-container class="myContainer">
       <v-layout>     
-          <v-flex xs10>
+          <v-flex xs12>
              <h1 class="display-3" style="line-height: 1 !important; "><b>{{ homedata[0].aboutheadline }}</b></h1>
              <div class="border white mt-4 mb-4"></div>
             <v-layout>
-                <div style="column-count: 3;" v-html="homedata[0].aboutdescription">
-                  
-                </div>
-              
+                <div :class="{'columnCount-2': $vuetify.breakpoint.smAndDown, 'columnCount-3': $vuetify.breakpoint.smAndUp}" v-html="homedata[0].aboutdescription">            
+                </div>              
             </v-layout>
           </v-flex>
-          <v-flex xs2 ml-2>
+          <v-flex xs2 ml-2 class="hidden-xs-only">
           <img src="@/static/chibi-2.png" class="chibi" alt="PianoCat baloon chibi" />
           </v-flex>
       </v-layout>
@@ -20,7 +18,12 @@
   </div>
 </template>
 <style>
-
+.columnCount-3 {
+  column-count: 3;
+}
+.columnCount-2 {
+  column-count: 2;
+}
 </style>
 <script>
 import Card from '@/components/Card'

@@ -128,23 +128,11 @@ export default {
     },
     filteredCovers(sorKey) {
       if (typeof this.search !== 'undefined' && this.search !== null) {
-        /*if (this.sortSettings.za) {
-	        return this.covers.filter(cover => {
-	            return cover.title.toLowerCase().match(this.search.toLowerCase())
-	        }).reverse()
-	      }
-	      if (this.sortSettings.recent) {
-	        return this.covers.filter(cover => {
-	            return cover.title.toLowerCase().match(this.search.toLowerCase())
-	        }).filter(view => {
-	            console.log(view)
-	          })
-	      } else {*/
         return this.covers.filter(cover => {
           return cover.title.toLowerCase().match(this.search.toLowerCase())
         }).reverse()
       } else {
-        return this.covers
+        return this.covers.filter(cover => {return cover}).reverse()
       }
     },
     items() {
