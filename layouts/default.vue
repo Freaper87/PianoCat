@@ -24,6 +24,13 @@
       <v-footer class="pa-3 footer">
         <v-spacer/>
         <nuxt-link to="/impressum">Impressum</nuxt-link>&nbsp;|&nbsp;<nuxt-link to="/datenschutz"> Datenschutz</nuxt-link>
+        <no-ssr>
+          <cookie-law buttonText="OK">
+            <div slot="message">
+              PianoCat uses cookies to ensure you a better service. By using this site, you agree to our <nuxt-link to="/datenschutz">cookie and privacy policy</nuxt-link>.
+            </div>
+          </cookie-law>
+        </no-ssr>
       </v-footer>
       <v-snackbar 
         v-model="snackbar" 
@@ -235,7 +242,14 @@ a {
 .footer {
   position: relative;
 }
-
+.footer .Cookie--base {
+    padding: 0.25em 1em;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.Cookie--base .Cookie__buttons {margin: 0;}
+.Cookie--base .Cookie__buttons button.Cookie__button{margin: 0; background: #303c74;}
+.Cookie--base .Cookie__buttons button.Cookie__button:hover {background: #1e2648;}
 @keyframes shine {
   from {
     transition: none;
@@ -250,11 +264,13 @@ a {
 <script>
 import Navigation from '@/components/Navigation'
 import CardList from '@/components/CardList'
+import CookieLaw from 'vue-cookie-law'
 
 export default {
   components: {
     Navigation,
-    CardList
+    CardList,
+    CookieLaw
   },
   computed: {
     snackbar() {
