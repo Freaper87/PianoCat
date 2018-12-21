@@ -4,82 +4,81 @@
       <v-card class="full-height" dark>
         <slot name="recent"></slot>
         <v-img v-if="cover.video" v-bind:src="'https://img.youtube.com/vi/' + videoID + '/hqdefault.jpg'" v-bind:alt="cover.title" aspect-ratio="1.42" class="play-video" :class="{'shine': !cover.id}">
-          <nuxt-link class="play-video-transparent" :to="'/' + cover.slug">
+          <nuxt-link class="play-video-transparent play-video-transparent-large" :to="'/' + cover.slug">
             <v-layout justify-center align-center full-height>
-          	 <v-btn color="primary" :to="'/' + cover.slug">Sheet music</v-btn>
+              <v-btn color="primary" :to="'/' + cover.slug">Sheet music</v-btn>
             </v-layout>
           </nuxt-link>
         </v-img>
         <v-img v-else aspect-ratio="1.62" class="play-video shine">
-        	<h3>Loading</h3>
+          <h3>Loading</h3>
         </v-img>
-        
         <v-layout row nowrap class="myvideoinfo" justify-start>
-
           <v-flex xs10>
             <v-layout pt-2 pl-3 column>
-        		<nuxt-link :to="'/' + cover.slug"><h3 class="body-2 primary--text">{{ cover.title }}</h3></nuxt-link>
-				<v-flex xs6>
-				<span class="caption font-weight-thin roboto-font blue-grey--text">
-				<v-icon small light color="blue-grey lighten-3">remove_red_eye</v-icon>
-				{{ videoinfo[0] ? videoinfo[0].statistics.viewCount : '-' }}				
-				<v-icon small light color="blue-grey lighten-3" class="ml-2">thumb_up</v-icon>
-				{{ videoinfo[0] ? videoinfo[0].statistics.likeCount : '-' }}				
-				<v-icon small light color="blue-grey lighten-3" class="ml-2">thumb_down</v-icon>
-				{{ videoinfo[0] ? videoinfo[0].statistics.dislikeCount : '-' }}
-				</span>
-				</v-flex>
+              <nuxt-link :to="'/' + cover.slug"><h3 class="body-2 primary--text">{{ cover.title }}</h3>
+              </nuxt-link>
+              <v-flex xs6>
+                <span class="caption font-weight-thin roboto-font blue-grey--text">
+        <v-icon small light color="blue-grey lighten-3">remove_red_eye</v-icon>
+        {{ videoinfo[0] ? videoinfo[0].statistics.viewCount : '-' }}        
+        <v-icon small light color="blue-grey lighten-3" class="ml-2">thumb_up</v-icon>
+        {{ videoinfo[0] ? videoinfo[0].statistics.likeCount : '-' }}        
+        <v-icon small light color="blue-grey lighten-3" class="ml-2">thumb_down</v-icon>
+        {{ videoinfo[0] ? videoinfo[0].statistics.dislikeCount : '-' }}
+        </span>
+              </v-flex>
             </v-layout>
           </v-flex>
           <v-flex xs2 align-center justify-center>
             <v-layout pa-2 align-center justify-end row fill-height>
-            	<v-btn fab flat absolute light tag="a" class="play-button">         		
-		          <v-icon color="primary">play_arrow</v-icon>
-		        </v-btn>             
+              <v-btn fab flat absolute light tag="a" @click.stop="setDialog()" class="play-button play-button-large">
+                <v-icon color="primary">play_arrow</v-icon>
+              </v-btn>
             </v-layout>
           </v-flex>
         </v-layout>
       </v-card>
     </div>
     <div v-else>
-    <v-hover>
-    <v-card flat slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 0}`">
-      <v-layout row wrap mb-2 pt-1>     	
-        <v-flex xs4>
-          <v-img v-if="cover.video" v-bind:src="'https://img.youtube.com/vi/' + videoID + '/mqdefault.jpg'" v-bind:alt="cover.title" aspect-ratio="1.62" class="play-video" :class="{'shine': !cover.id}">
-            <div class="play-video-transparent">
-              <v-btn fab absolute class="play-button" light @click="dialog = true" tag="a">
-                <v-icon color="primary">play_arrow</v-icon>
-              </v-btn>
-            </div>
-          </v-img>
-          <v-img v-else aspect-ratio="1.62" class="play-video">
-        	<h3>Loading</h3>
-          </v-img>
-        </v-flex>
-        <v-flex xs8>
-          <nuxt-link :to="'/' + cover.slug"><h3>{{ cover.title }}</h3></nuxt-link>
-            <v-layout row wrap grid-list-xs justify-start fluid align-content-start>
-              <v-flex xs12>
-                <v-layout pt-2 justify-start align-start>
-                	<span class="caption font-weight-thin roboto-font blue-grey--text">
+      <v-hover>
+        <v-card flat slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 0}`">
+          <v-layout row wrap mb-2 pt-1>
+            <v-flex xs4>
+              <v-img v-if="cover.video" v-bind:src="'https://img.youtube.com/vi/' + videoID + '/mqdefault.jpg'" v-bind:alt="cover.title" aspect-ratio="1.62" class="play-video" :class="{'shine': !cover.id}">
+                <div class="play-video-transparent">
+                  <v-layout justify-center align-center fill-height>
+                    <v-btn fab absolute class="play-button" light @click="setDialog()" tag="a">
+                      <v-icon color="primary">play_arrow</v-icon>
+                    </v-btn>
+                  </v-layout>
+                </div>
+              </v-img>
+              <v-img v-else aspect-ratio="1.62" class="play-video">
+                <h3>Loading</h3>
+              </v-img>
+            </v-flex>
+            <v-flex xs8>
+              <nuxt-link :to="'/' + cover.slug"><h3>{{ cover.title }}</h3>
+              </nuxt-link>
+              <v-layout row wrap grid-list-xs justify-start fluid align-content-start>
+                <v-flex xs12>
+                  <v-layout pt-2 justify-start align-start>
+                    <span class="caption font-weight-thin roboto-font blue-grey--text">
                     <v-icon small class="ml-2">remove_red_eye</v-icon>
                     {{ videoinfo[0] ? videoinfo[0].statistics.viewCount : '-' }}
                     <v-icon small class="ml-2">thumb_up</v-icon>
                     {{ videoinfo[0] ? videoinfo[0].statistics.likeCount : '-' }}
                     <v-icon small class="ml-2">thumb_down</v-icon>
                     {{ videoinfo[0] ? videoinfo[0].statistics.dislikeCount : '-' }}
-                  	</span>
-                </v-layout>
-              </v-flex>
-            </v-layout>
-        </v-flex>   	
-      </v-layout>
-    </v-card>
-	</v-hover>
-      <!--<v-dialog v-model="dialog" dark class="video-dialog">
-        <div class="shine"></div><iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" v-if="cover.video" v-bind:src="'//www.youtube.com/embed/' + cover.video + '?autoplay=0&amp;rel=0'"></iframe>
-      </v-dialog>-->
+                    </span>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-hover>
     </div>
   </div>
 </template>
@@ -106,11 +105,15 @@
 
 .play-video-transparent {
   width: 100%;
-  height: calc(100% - 64px);
+  height: 100%;
   position: absolute;
   opacity: 0;
   background-color: rgba(48, 60, 116, .76);
   transition: 250ms;
+}
+
+.play-video-transparent-large {
+  height: calc(100% - 64px);
 }
 
 .myvideoinfo {
@@ -129,19 +132,14 @@
 
 .play-button {
   position: absolute;
-  bottom: 8px;
-  right: 10px;
-  transform: translate(-0%, -50%);
   font-size: 100px !important;
   background-color: #efefef;
 }
 
-.v-dialog {
-  height: 66%;
-  overflow: hidden;
-  width: 100%;
-  max-width: 1000px;
-  position: relative;
+.play-button-large {
+  bottom: 8px;
+  right: 10px;
+  transform: translate(-0%, -50%);
 }
 
 @keyframes rotate-forever {
@@ -162,19 +160,6 @@
   }
 }
 
-#player {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  overflow: hidden;
-  display: inline-block;
-  z-index: 2;
-  position: absolute;
-}
-
 </style>
 <script>
 export default {
@@ -193,12 +178,6 @@ export default {
       default: true
     }
   },
-  data() {
-    return {
-      dialog: false,
-      Videoiframe: ``
-    }
-  },
   computed: {
     videoID() {
       if (this.cover !== null) {
@@ -215,6 +194,16 @@ export default {
         return null
       }
     }
-  }
+  },
+  methods: {
+    setDialog() {
+      let dialog = {
+        open: true,
+        video: this.cover.video
+      }
+      this.$store.commit('GET_DIALOG', dialog)
+      }
+      
+    }
 }
 </script>

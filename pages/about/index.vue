@@ -3,10 +3,10 @@
     <v-container class="myContainer">
       <v-layout>     
           <v-flex xs12>
-             <h1 class="display-3" style="line-height: 1 !important; "><b>{{ homedata[0].aboutheadline }}</b></h1>
+             <h1 class="display-3 white--text" style="line-height: 1 !important; "><b>{{ homedata[0].aboutheadline }}</b></h1>
              <div class="border white mt-4 mb-4"></div>
             <v-layout>
-                <div :class="{'columnCount-2': $vuetify.breakpoint.smAndDown, 'columnCount-3': $vuetify.breakpoint.smAndUp}" v-html="homedata[0].aboutdescription">            
+                <div class="white--text" :class="{'columnCount-2': $vuetify.breakpoint.sm, 'columnCount-3': $vuetify.breakpoint.smAndUp}" v-html="homedata[0].aboutdescription">            
                 </div>              
             </v-layout>
           </v-flex>
@@ -26,12 +26,8 @@
 }
 </style>
 <script>
-import Card from '@/components/Card'
 export default {
   name: 'About',
-  components: {
-    Card
-  },
   head() {
     return {
       title: this.homedata[0].aboutmetatitle,

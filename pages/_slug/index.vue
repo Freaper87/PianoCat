@@ -118,7 +118,6 @@
 iframe {
   display: inline-block;
   height: 100%;
-  max-height: 450px;
 }
 
 .radius-border {

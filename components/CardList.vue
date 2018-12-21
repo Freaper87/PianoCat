@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <v-container mt-4>
       <v-layout 
         justify-center 
@@ -14,51 +13,23 @@
             <v-layout 
               justify-center 
               align-center 
-              row
-              elevation-1 >
-
+              row 
+              elevation-1>
               <v-flex 
                 xs9 
-                md8
-                >
-                	
+                md8>
                 <v-combobox 
-                  v-model="search" 
                   id="searchcovers" 
+                  v-model="search" 
                   :items="items" 
                   :label="search" 
-                  
                   prepend-icon="search" 
                   aria-label="search" 
                   placeholder="search" 
                   clearable 
-clear-icon="clear" name="searchcovers"/>
-                	
-                  <!--<v-autocomplete v-model="search" :items="items" :label="search" type="text" prepend-icon="search"></v-autocomplete> -->
-                  <!-- <v-text-field label="search" type="text" v-model="search" prepend-icon="search" :items="items" browser-autocomplete></v-text-field> -->
+                  clear-icon="clear" 
+                  name="searchcovers" />
               </v-flex>
-              <!--
-                <v-flex xs1>
-                  <v-menu>
-                    <v-toolbar-title slot="activator">
-                      <v-tooltip bottom>
-                        <v-icon slot="activator">filter_list</v-icon>
-                        <span>Sort</span>
-                      </v-tooltip>
-                    </v-toolbar-title>
-                    <v-list>
-                      <v-list-tile @click="sortSettings.za = false ? sortSettings.za == true : sortSettings.za == false">
-                        <span v-if="sortSettings.za === false">z-a</span>
-                        <span v-if="sortSettings.za === true">a-z</span>
-                      </v-list-tile>
-                      <v-list-tile @click="sortSettings.recent = false ? sortSettings.recent == true : sortSettings.recent == false">
-                        <span v-if="sortSettings.recent === false">Most recent active</span>
-                        <span v-if="sortSettings.recent === true">Most recent inactive</span>
-                      </v-list-tile>
-                    </v-list>
-                  </v-menu>
-                </v-flex>
-            -->
               <v-flex xs1>
                 <v-tooltip bottom>
                   <v-btn 
@@ -77,7 +48,6 @@ clear-icon="clear" name="searchcovers"/>
         </v-flex>
       </v-layout>
     </v-container>
-    
     <v-container grid-list-md>
       <v-layout 
         align-space-around 
@@ -93,7 +63,7 @@ clear-icon="clear" name="searchcovers"/>
           <card 
             :cover="cover" 
             :video-statistics="VideoStatistics" 
-            :layout="layout.grid"/>
+            :layout="layout.grid" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -128,11 +98,17 @@ export default {
     },
     filteredCovers(sorKey) {
       if (typeof this.search !== 'undefined' && this.search !== null) {
-        return this.covers.filter(cover => {
-          return cover.title.toLowerCase().match(this.search.toLowerCase())
-        }).reverse()
+        return this.covers
+          .filter(cover => {
+            return cover.title.toLowerCase().match(this.search.toLowerCase())
+          })
+          .reverse()
       } else {
-        return this.covers.filter(cover => {return cover}).reverse()
+        return this.covers
+          .filter(cover => {
+            return cover
+          })
+          .reverse()
       }
     },
     items() {

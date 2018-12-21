@@ -8,9 +8,9 @@
           <v-flex xs12 sm12 lg8>
             <v-layout column>
               <v-flex mb-4>
-                <h1 :class="{'display-2': $vuetify.breakpoint.smAndDown, 'display-3': $vuetify.breakpoint.mdAndUp}" style="line-height: 1 !important; " v-html="homedata[0].headline"></h1>
+                <h1 class="white--text" :class="{'display-2': $vuetify.breakpoint.smAndDown, 'display-3': $vuetify.breakpoint.mdAndUp}" style="line-height: 1 !important; " v-html="homedata[0].headline"></h1>
                 <div class="border white mt-4 mb-4"></div>
-                <span class="subheading" v-html="homedata[0].description"></span>
+                <span class="subheading white--text" v-html="homedata[0].description"></span>
               </v-flex>
               <v-flex v-if="covers">
                 <card :cover="covers[covers.length - 1]" :VideoStatistics="VideoStatistics"><span slot="recent" class="primary ribbon color-3">Most recent</span></card>
@@ -22,10 +22,11 @@
   </div>
 </template>
 <style>
-  .chibi {
-    width: 100%;
-    max-width: 385px;
-  }
+.chibi {
+  width: 100%;
+  max-width: 385px;
+}
+
 </style>
 <script>
 import Card from '@/components/Card'
@@ -38,11 +39,15 @@ export default {
     return {
       title: this.homedata[0].metatitle,
       meta: [
-        { hid: 'description', name: 'description', content: this.homedata[0].metadescription }
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.homedata[0].metadescription
+        }
       ]
     }
   },
-  async fetch ({ store }) {
+  async fetch({ store }) {
     await store.dispatch('getHomedata')
   },
   data() {

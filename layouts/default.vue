@@ -1,24 +1,68 @@
 <template>
   <v-app>
     <div id="pianocat-app">
-      <div class="bg">
-        <img src="@/static/gradient5.svg" alt="background-gradient" style="left: 26%;" />
-        <img src="@/static/gradient4.svg" alt="background-gradient" style="left: -1%;bottom: 10px;" />
-        <img src="@/static/gradient3.svg" alt="background-gradient" style="height: 100%; bottom: 10px;" />
+      <div 
+        :class="{'bg-maxheight' : $vuetify.breakpoint.smAndUp}" 
+        class="bg">
+        <img 
+          src="@/static/gradient5.svg" 
+          alt="background-gradient" 
+          style="left: 26%;" >
+        <img 
+          src="@/static/gradient4.svg" 
+          alt="background-gradient" 
+          style="left: -1%;bottom: 10px;" >
+        <img 
+          src="@/static/gradient3.svg" 
+          alt="background-gradient" 
+          style="height: 100%; bottom: 10px;" >
 
       </div>
-        <navigation />
-        <nuxt />
-        <card-list></card-list>
-        <v-footer class="pa-3">
-          <v-spacer></v-spacer>
-          <div>footer</div>
-        </v-footer>
-        <v-snackbar v-model="snackbar" bottom>{{ this.$store.getters.getError }} <v-btn color="pink" flat @click="snackbar = false">Close</v-btn></v-snackbar>
-       <!-- <v-dialog v-model="dialog" dark class="video-dialog" lazy>
-        <div class="shine"><iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="100%" v-bind:src="`//www.youtube.com/embed/${this.$store.modal}?autoplay=0&amp;rel=0`"></iframe></div>
-      </v-dialog> -->
+      <navigation />
+      <nuxt />
+      <card-list/>
+      <v-footer class="pa-3 footer">
+        <v-spacer/>
+        <nuxt-link to="/impressum">Impressum</nuxt-link>&nbsp;|&nbsp;<nuxt-link to="/datenschutz"> Datenschutz</nuxt-link>
+      </v-footer>
+      <v-snackbar 
+        v-model="snackbar" 
+        bottom>{{ this.$store.getters.getError }} <v-btn 
+          color="pink" 
+          flat 
+          @click="snackbar = false">Close</v-btn>
+      </v-snackbar>
+      <div class="mydialog-content" :class="{'mydialog-active': dialog.open}">
+        <div class="mydialog" :class="{'minimize': dialog.minimize}">
+          <div class="videoContainer">
+            <div class="videoclose">
+              <v-btn 
+                small 
+                icon 
+                @click="minimizeDialog()">
+                <v-icon class="white--text">minimize</v-icon>
+              </v-btn>
+              <v-btn 
+                small 
+                icon 
+                @click="clearDialog()">
+                <v-icon class="white--text">close</v-icon>
+              </v-btn>
+            </div>
+            <div class="shine" v-if="dialog.video != ''">
+              <iframe 
+                id="player" 
+                :src="`//www.youtube.com/embed/${dialog.video}?autoplay=0&amp;rel=0`" 
+                frameborder="0" 
+                allowfullscreen="1" 
+                title="YouTube video player" 
+                width="100%" 
+                height="100%"/>   
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </v-app>
 </template>
 <style>
@@ -27,15 +71,19 @@
 body {
   font-family: 'Raleway', sans-serif;
 }
+
 a {
   text-decoration: none;
 }
+
 .roboto-font {
   font-family: 'Roboto';
 }
+
 .pacifico-font {
   font-family: 'Pacifico', cursive;
 }
+
 .hero-font {
   font-size: 126px;
   font-weight: 100;
@@ -47,11 +95,6 @@ a {
   position: relative;
   background-color: inherit;
   box-shadow: inherit;
-}
-
-.myContainer h1,
-.myContainer p {
-  color: #fff;
 }
 
 .ribbon {
@@ -82,7 +125,7 @@ a {
   top: 0;
   left: 0;
   height: 100%;
-  max-height: 765px;
+  max-height: 1200px;
   background-color: #77d5fb;
   background: url(../assets/bg.jpg);
   background-size: cover;
@@ -91,9 +134,12 @@ a {
   overflow: hidden;
 }
 
+.bg-maxheight {
+  max-height: 765px;
+}
+
 .bg img {
   position: absolute;
-
 }
 
 .border {
@@ -102,17 +148,103 @@ a {
   background-color: #303c74;
   display: block;
 }
+
 .shine {
-  background-color: #CCC !important;
-  animation-name: shine; 
-  animation-duration: 2s; 
+  background-color: #ccc !important;
+  animation-name: shine;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-direction: alternate-reverse;
 }
+
+.v-dialog {
+  height: 66%;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  background-color: #303c74;
+}
+
+.videoclose {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+}
+
+#player {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  border: 0;
+  overflow: hidden;
+  display: inline-block;
+  position: absolute;
+}
+
+.mydialog.minimize {
+  bottom: 0;
+  right: 0;
+  width: 30%;
+  min-width: 320px;
+  height: 30%;
+  min-height: 210px;
+  position: absolute;
+}
+.mydialog-content {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+    z-index: 6;
+    outline: none;
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+.mydialog-active {
+    display: flex;
+    transform: scale(1);
+    opacity: 1;
+}
+.mydialog {
+    box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12);
+    border-radius: 2px;
+    margin: 24px;
+    overflow-y: auto;
+    pointer-events: auto;
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+    z-index: inherit;
+    height: 66%;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    background-color: #303c74;
+}
+.footer {
+  position: relative;
+}
+
 @keyframes shine {
-    from {transition:none;}
-    to {background-color:#f6f7f8;transition: all 0.3s ease-out;}
+  from {
+    transition: none;
+  }
+
+  to {
+    background-color: #f6f7f8;
+    transition: all 0.3s ease-out;
+  }
 }
 </style>
 <script>
@@ -129,12 +261,37 @@ export default {
       if (this.$store.getters.getError === '') {
         return false
       } else {
-      return true
+        return true
       }
+    },
+    dialog() {
+      return this.$store.getters.getDialog
+    }
+  },
+  watch: {
+    dialog: function() {
+      return this.$store.getters.getDialog
     }
   },
   mounted() {
     this.$store.dispatch('getCovers')
+  },
+  methods: {
+    clearDialog() {
+      let dialog = {
+        open: false,
+        video: '',
+        minimize: false
+      }
+      this.$store.commit('GET_DIALOG', dialog)
+    },
+    minimizeDialog() {
+      if (this.dialog.minimize == true) {
+        return (this.dialog.minimize = false)
+      } else {
+        return (this.dialog.minimize = true)
+      }     
+    }
   }
 }
 </script>
