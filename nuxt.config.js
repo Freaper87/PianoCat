@@ -5,6 +5,7 @@ require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
+  base: '/dist/',
   /*
   ** Headers of the page
   */
@@ -73,8 +74,8 @@ module.exports = {
 
   generate: {
     routes: function() {
-      return axios.get(process.env.url + '/covers/')
-      .then(res => {
+      return axios.get(process.env.VUE_API_URL + '/covers/')
+      .then((res) => {
           return res.data.map((myslug) => {
             return '/' + myslug.slug
           })
@@ -123,7 +124,6 @@ module.exports = {
           }
         })
       }
-
       config.plugins.push(
         new VuetifyLoaderPlugin()
       )

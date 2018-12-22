@@ -59,7 +59,7 @@
             <div class="shine" v-if="dialog.video != ''">
               <iframe 
                 id="player" 
-                :src="`//www.youtube.com/embed/${dialog.video}?autoplay=0&amp;rel=0`" 
+                :src="`//www.youtube.com/embed/${dialog.video}?version=3&amp;loop=1&amp;playlist=${dialog.allexceptthisvideo}`" 
                 frameborder="0" 
                 allowfullscreen="1" 
                 title="YouTube video player" 
@@ -282,6 +282,12 @@ export default {
     },
     dialog() {
       return this.$store.getters.getDialog
+    },
+    allVideoIds() {
+      var allVideoIds = this.$store.getters.allCovers.map(cover => {
+        return cover.video
+      })
+      return allVideoIds.reverse().toString()
     }
   },
   watch: {
@@ -306,7 +312,7 @@ export default {
         return (this.dialog.minimize = false)
       } else {
         return (this.dialog.minimize = true)
-      }     
+      }
     }
   }
 }

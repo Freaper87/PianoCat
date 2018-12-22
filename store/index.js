@@ -58,8 +58,10 @@ const createStore = () => {
       dialog: {
         open: false,
         video: '',
-        minimize: false
-      }
+        minimize: false,
+        allexceptthisvideo: ''
+      },
+      allVideos: ''
     },
     getters: {
       allCovers: state => state.covers,
@@ -89,6 +91,13 @@ const createStore = () => {
       GET_DIALOG: (state, dialog) => {
         state.dialog.open = dialog.open
         state.dialog.video = dialog.video
+        state.dialog.allexceptthisvideo = state.allVideoStatistics.reduce((result, cover) => {
+          if (cover.id != state.dialog.video) {
+          result.push(cover.id)
+          }
+            return result
+          
+        },[]).reverse().toString()
       },
       GET_IMPRESSUM: (state, impressum) => {
         state.impressum = impressum
