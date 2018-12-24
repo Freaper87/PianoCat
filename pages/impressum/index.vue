@@ -26,6 +26,11 @@ export default {
           hid: 'description',
           name: 'description',
           content: 'PianoCat - Impressum'
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: 'noindex, nofollow'
         }
       ]
     }

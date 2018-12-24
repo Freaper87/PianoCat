@@ -13,7 +13,7 @@
                 <span class="subheading white--text" v-html="homedata[0].description"></span>
               </v-flex>
               <v-flex v-if="covers">
-                <card :cover="covers[covers.length - 1]" :VideoStatistics="VideoStatistics"><span slot="recent" class="primary ribbon color-3">Most recent</span></card>
+                <card :cover="covers[covers.length - 1]" :VideoStatistics="VideoStatistics"><span slot="recent" class="ribbon color-3"><v-tooltip bottom><v-icon slot="activator">star</v-icon><span>Most recent cover</span></v-tooltip></span></card>
               </v-flex>
             </v-layout>
           </v-flex>

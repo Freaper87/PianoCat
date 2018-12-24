@@ -16,7 +16,7 @@
               </v-container>
             </v-layout>
             <v-layout :class="{'ml-0 mr-0': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}" wrap>
-              <v-flex xs12 lg6>
+              <v-flex xs12 md6>
                 <v-container>
                   <v-card height="301px" :class="{'shine': !cover.id}">
                     <iframe frameborder="0" v-if="cover.video" allowfullscreen="1" title="YouTube video player" width="100%" v-bind:src="'https://www.youtube.com/embed/' + cover.video + '?autoplay=0&amp;rel=0'"></iframe>
@@ -58,11 +58,11 @@
                   </v-flex>
                 </v-container>
               </v-flex>
-              <v-flex xs12 lg6>
-                <v-layout justify-space-between row fill-height>
+              <v-flex xs12 md6 class="carouselwidth">
+                <v-layout justify-start column fill-height align-content-start>
                   <v-container>
-                    <v-carousel height="700px" v-if="cover" :class="{'shine': !cover.id}" next-icon="keyboard_arrow_right" prev-icon="keyboard_arrow_left" hide-delimiters :cycle="false">
-                      <v-carousel-item v-for="(item, index) in sheetpreview" :key="index" v-bind:src="item.path" width="100%"></v-carousel-item>
+                    <v-carousel v-if="cover" :class="{'shine': !cover.id}" next-icon="keyboard_arrow_right" prev-icon="keyboard_arrow_left" hide-delimiters :cycle="false" height="auto">
+                      <v-carousel-item v-for="(item, index) in sheetpreview" :key="index" v-bind:src="item.path"></v-carousel-item>
                     </v-carousel>
                   </v-container>
                 </v-layout>
@@ -105,7 +105,14 @@
 .iframeWrapper {
   height: 301px;
 }
-
+.flex.carouselwidth {
+    max-width: 100%;
+  }
+@media (max-width: 960px) {
+  .flex.carouselwidth {
+    max-width: 400px;
+  }
+}
 @media (max-width: 600px) {
   .iframeWrapper {
     height: 250px;

@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLV8DF8"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="pianocat-app">
       <div 
         :class="{'bg-maxheight' : $vuetify.breakpoint.smAndUp}" 
@@ -23,7 +27,7 @@
       <card-list/>
       <v-footer class="pa-3 footer">
         <v-spacer/>
-        <nuxt-link to="/impressum">Impressum</nuxt-link>&nbsp;|&nbsp;<nuxt-link to="/datenschutz"> Datenschutz</nuxt-link>
+        <nuxt-link to="/impressum" rel="nofollow">Impressum</nuxt-link>&nbsp;|&nbsp;<nuxt-link to="/datenschutz" rel="nofollow"> Datenschutz</nuxt-link>
         <no-ssr>
           <cookie-law buttonText="OK">
             <div slot="message">
@@ -81,6 +85,7 @@ body {
 
 a {
   text-decoration: none;
+  font-weight: 600;
 }
 
 .roboto-font {
@@ -106,18 +111,17 @@ a {
 
 .ribbon {
   z-index: 2;
-  padding: 10px 55px;
+  padding: 5px 20px;
   box-shadow: 0 2px 4px -2px #242c53;
   color: #fff;
   text-align: center;
   vertical-align: sub;
   text-transform: capitalize;
   position: absolute;
-  transform: rotateZ(-45deg);
-  left: -45px;
-  top: 31px;
+  border-bottom-right-radius: 45px;
   overflow: hidden;
   display: inline;
+  background-color: #23a1f3;
 }
 
 .application.theme--light {
