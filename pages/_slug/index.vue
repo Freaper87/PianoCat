@@ -18,26 +18,45 @@
             <v-layout :class="{'ml-0 mr-0': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}" wrap>
               <v-flex xs12 md6>
                 <v-container>
-                  <v-card height="301px" :class="{'shine': !cover.id}">
+                  <v-card class="iframeWrapper" :class="{'shine': !cover.id}">
                     <iframe frameborder="0" v-if="cover.video" allowfullscreen="1" title="YouTube video player" width="100%" v-bind:src="'https://www.youtube.com/embed/' + cover.video + '?autoplay=0&amp;rel=0'"></iframe>
                   </v-card>
                   <v-flex xs12>
-                    <v-flex offset-sm6 xs12 sm6 mt-2>
-                      <v-layout v-if="videoinfo" class="text-xs-right">
-                        <v-flex xs6 sm6 right>
-                          <v-icon small>remove_red_eye</v-icon>
-                          {{ videoinfo[0] ? videoinfo[0].statistics.viewCount : '-'}}
-                        </v-flex>
-                        <v-flex xs3 sm3>
-                          <v-icon small>thumb_up</v-icon>
-                          {{ videoinfo[0] ? videoinfo[0].statistics.likeCount : '-'}}
-                        </v-flex>
-                        <v-flex xs3 sm3>
-                          <v-icon small>thumb_down</v-icon>
-                          {{ videoinfo[0] ? videoinfo[0].statistics.dislikeCount : '-'}}
-                        </v-flex>
-                      </v-layout>
-                    </v-flex>
+                    <v-layout row wrap mt-4>
+                      <v-flex xs4 sm4>
+                        <div id="yt-subscribe">
+                          <a href="https://www.youtube.com/c/PianoCatMusic?sub_confirmation=1" target="_blank" alt="PianoCat YouTube Channel" title="PianoCat YouTube Channel">
+                            <span class="yt-thumb">
+                              <img src="@/static/Pianocat-yt.jpg" alt="" height="48" aria-hidden="true" width="48">
+                            </span>
+                          </a>
+                          <a href="https://www.youtube.com/c/PianoCatMusic?sub_confirmation=1" class="yt-username" target="_blank" alt="PianoCat YouTube Channel" title="PianoCat YouTube Channel">PianoCat</a>
+                          <a href="https://www.youtube.com/c/PianoCatMusic?sub_confirmation=1" target="_blank" alt="Subscribe to PianoCat" title="Subscribe to PianoCat">
+                            <span class=" yt-uix-button-subscription-container">
+                              <button class="yt-uix-button yt-uix-button-size-default yt-uix-button-subscribe-branded yt-uix-button-has-icon no-icon-markup yt-uix-subscription-button" type="button">
+                                <span class="yt-uix-button-content roboto-font">YouTube</span>
+                              </button>
+                            </span>
+                          </a>
+                        </div>
+                      </v-flex>
+                      <v-flex xs8 sm8>
+                        <v-layout v-if="videoinfo" class="text-xs-right" justify-space-around>
+                          <v-flex xs6 sm6 mr-2>
+                            <v-icon small>remove_red_eye</v-icon>
+                            {{ videoinfo[0] ? videoinfo[0].statistics.viewCount : '-'}}
+                          </v-flex>
+                          <v-flex xs3 sm3>
+                            <v-icon small>thumb_up</v-icon>
+                            {{ videoinfo[0] ? videoinfo[0].statistics.likeCount : '-'}}
+                          </v-flex>
+                          <v-flex xs3 sm3>
+                            <v-icon small>thumb_down</v-icon>
+                            {{ videoinfo[0] ? videoinfo[0].statistics.dislikeCount : '-'}}
+                          </v-flex>
+                        </v-layout>
+                      </v-flex>
+                    </v-layout>
                     <v-card-text :class="{'shine': !cover.id}">
                       <span v-if="cover" v-html="cover.description"></span>
                     </v-card-text>
@@ -108,14 +127,67 @@
 .flex.carouselwidth {
     max-width: 100%;
   }
+#yt-subscribe {
+  width: 140px;
+}
+#yt-subscribe > a:first-child {
+  float: left;
+  margin-right: 10px;
+}
+.yt-uix-button {
+    display: inline-block;
+    height: 28px;
+    border: solid 1px transparent;
+    padding: 0 10px;
+    outline: 0;
+    font-weight: 500;
+    font-size: 11px;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+.yt-username {
+  font-weight: inherit;
+}
+.yt-uix-button-subscribe-branded {
+    color: #fefefe;
+    background-color: #e62117;
+}
+.yt-uix-button-subscribe-branded:hover {
+    background-color: #ca1d14;
+}
+.yt-uix-button.yt-uix-button-subscribe-branded, .yt-uix-button.yt-uix-button-subscribed-branded {
+    padding: 0 8px 0 5.5px;
+    height: 24px;
+}
+.yt-uix-button-subscribe-branded:before {
+    background: no-repeat url(//s.ytimg.com/yts/imgbin/www-hitchhiker-vfl-Nn88d.png) -721px -88px;
+    background-size: auto;
+    width: 16px;
+    height: 12px;
+}
+.yt-uix-button-has-icon:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+}
+.yt-uix-button-has-icon.no-icon-markup:before {
+    margin-right: 6px;
+}
+.yt-uix-button-content {
+  vertical-align: bottom;
+}
 @media (max-width: 960px) {
   .flex.carouselwidth {
     max-width: 400px;
   }
-}
-@media (max-width: 600px) {
   .iframeWrapper {
-    height: 250px;
+    height: 42vw;
   }
 }
 .v-window.v-carousel .v-btn__content {
