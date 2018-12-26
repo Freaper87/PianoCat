@@ -5,3 +5,19 @@ done: - links in about page: make bold, change color
 done: - add YT logo + link under sheet music video
 done: - rethink pateron nav logo (maybe bg: #2fb9f6, not outlined, not flat)
 done: - change most recent to Icon: star
+
+// ping raspberrypi (raspberry.local || raspberry.localdomain)
+
+install newest node + npm:
+sudo apt update
+sudo apt upgrade
+
+// npm update
+sudo apt install npm
+sudo npm install -g npm@latest // new Path: /usr/local/lib/node_modules/npm
+sudo reboot
+
+// node update
+sudo npm install -g n
+sudo n stable
+sudo reboot
