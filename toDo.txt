@@ -1,6 +1,6 @@
 done: - links in about page: make bold, change color
 - YouTube: Icon instead of Text
-- empty search after going to link
+done: - empty search after going to link
 - make h2 identical
 done: - add YT logo + link under sheet music video
 done: - rethink pateron nav logo (maybe bg: #2fb9f6, not outlined, not flat)

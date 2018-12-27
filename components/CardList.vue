@@ -79,7 +79,7 @@ export default {
   },
   data() {
     return {
-      search: '',
+      //search: this.$store.getters.search,
       sortSettings: {
         za: false,
         recent: false
@@ -97,10 +97,10 @@ export default {
       return this.$store.getters.allVideostatistics
     },
     filteredCovers(sorKey) {
-      if (typeof this.search !== 'undefined' && this.search !== null) {
+      if (typeof this.$store.getters.search !== 'undefined' && this.$store.getters.search !== null) {
         return this.covers
           .filter(cover => {
-            return cover.title.toLowerCase().match(this.search.toLowerCase())
+            return cover.title.toLowerCase().match(this.$store.getters.search.toLowerCase())
           })
           .reverse()
       } else {
@@ -109,6 +109,14 @@ export default {
             return cover
           })
           .reverse()
+      }
+    },
+    search: {
+      get () {
+        return this.$store.getters.search
+      },
+      set (value) {
+        this.$store.commit('GET_SEARCH', value)
       }
     },
     items() {

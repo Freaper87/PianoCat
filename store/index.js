@@ -61,7 +61,8 @@ const createStore = () => {
         minimize: false,
         allexceptthisvideo: ''
       },
-      allVideos: ''
+      allVideos: '',
+      search: ''
     },
     getters: {
       allCovers: state => state.covers,
@@ -71,6 +72,7 @@ const createStore = () => {
       getError: state => state.error,
       getDialog: state => state.dialog,
       allImpressum: state => state.impressum,
+      search: state => state.search
     },
     mutations: {
       GET_COVERS: (state, covers) => {
@@ -101,6 +103,9 @@ const createStore = () => {
       },
       GET_IMPRESSUM: (state, impressum) => {
         state.impressum = impressum
+      },
+      GET_SEARCH: (state, search) => {
+        state.search = search
       }
     },
     actions: {
@@ -145,6 +150,7 @@ const createStore = () => {
           let SlugVar = this.$router.history.current.path
           const { data } = await axios.get(process.env.url + '/covers' + SlugVar)
           commit('GET_SINGLECOVER', data[0])
+          commit('GET_SEARCH', '')
         } catch (error) {
           commit('GET_ERROR', 'could not load cover')
         }
