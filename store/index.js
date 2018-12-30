@@ -157,6 +157,7 @@ const createStore = () => {
           commit('GET_SEARCH', '')
         } catch (error) {
           commit('GET_ERROR', 'could not load cover')
+          this.$router.push('/')
         }
       }
     }

@@ -247,7 +247,7 @@ export default {
     path() {
       return this.$route.name
     },
-    countPatrons (){
+    countPatrons(){
       return this.cover.patrons.length
     }
   },
