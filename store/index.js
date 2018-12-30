@@ -2,6 +2,8 @@
 import Vuex from 'vuex'
 import axios from 'axios'
 
+
+
 const createStore = () => {
   return new Vuex.Store({
 
@@ -120,7 +122,9 @@ const createStore = () => {
             var allVideoIDs = this.state.covers.map((cover) => {
               return cover.video
             })
-            axios.get('https://www.googleapis.com/youtube/v3/videos?part=statistics&id=' + allVideoIDs + '&key=' + process.env.key).then(response => {
+            const sendVideos = new URLSearchParams()
+            sendVideos.append('allVideoIDs', allVideoIDs)
+            axios.post(process.env.url + '/ytrequest', sendVideos).then(response => {
                 commit('GET_VIDEOINFO', response.data.items)
               })
               .catch((error) => {
