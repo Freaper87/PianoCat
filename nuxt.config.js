@@ -70,7 +70,9 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
-
+  serverMiddleware: [
+  	{ path: '/ytcall', handler: '~/ytcall/index.js' },
+  ],
   generate: {
     routes: function() {
       return axios.get(process.env.VUE_API_URL + '/covers/')

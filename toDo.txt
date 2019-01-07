@@ -5,19 +5,66 @@ done: - empty search after going to link
 done: - add YT logo + link under sheet music video
 done: - rethink pateron nav logo (maybe bg: #2fb9f6, not outlined, not flat)
 done: - change most recent to Icon: star
-
+- make redirect if unknown route
+- make server side YT call on nuxt
 // ping raspberrypi (raspberry.local || raspberry.localdomain)
 
 install newest node + npm:
-sudo apt update
-sudo apt upgrade
+	sudo apt update
+	sudo apt upgrade
 
 // npm update
-sudo apt install npm
-sudo npm install -g npm@latest // new Path: /usr/local/lib/node_modules/npm
-sudo reboot
+	sudo apt install npm
+	sudo npm install -g npm@latest // new Path: /usr/local/lib/node_modules/npm
+	sudo reboot
 
 // node update
-sudo npm install -g n
-sudo n stable
-sudo reboot
+	sudo npm install -g n
+	sudo n stable
+	sudo reboot
+
+BETTER ALTERNATIVE FOR NODE + NPM:
+	cd ~
+	curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+	sudo bash nodesource_setup.sh
+	sudo apt install nodejs
+
+//nginx
+	STATUS:
+	systemctl status nginx
+
+	To stop your web server, type:
+	sudo systemctl stop nginx
+
+	To start the web server when it is stopped, type:
+	sudo systemctl start nginx
+
+	To stop and then start the service again, type:
+	sudo systemctl restart nginx
+
+	If you are simply making configuration changes, Nginx can often reload without dropping connections. To do this, type:
+	sudo systemctl reload nginx
+	By default, Nginx is configured to start automatically when the server boots. If this is not what you want, you can disable this behavior by typing:
+	sudo systemctl disable nginx
+	To re-enable the service to start up at boot, you can type:
+	sudo systemctl enable nginx
+
+sudo mkdir -p /var/www/pianocat.de/html
+sudo chown -R $USER:$USER /var/www/pianocat.de/html
+sudo chmod -R 755 /var/www/pianocat.de
+nano /var/www/pianocat.de/html/index.html
+sudo nano /etc/nginx/sites-available/pianocat.de
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/pianocat.de/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name pianocat.de www.pianocat.de;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+sudo ln -s /etc/nginx/sites-available/pianocat.de /etc/nginx/sites-enabled/

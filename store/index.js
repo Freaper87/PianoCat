@@ -124,8 +124,8 @@ const createStore = () => {
             })
             const sendVideos = new URLSearchParams()
             sendVideos.append('allVideoIDs', allVideoIDs)
-            axios.post(process.env.url + '/ytrequest', sendVideos).then(response => {
-                commit('GET_VIDEOINFO', response.data.items)
+            axios.post('/ytcall', sendVideos).then(response => {
+                commit('GET_VIDEOINFO', response.data)
               })
               .catch((error) => {
                 commit('GET_ERROR', 'could not load YouTube statistics')

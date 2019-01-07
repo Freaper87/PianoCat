@@ -1,23 +1,23 @@
 <template>
   <div>
-    <v-container>
+    <v-container v-if="cover">
       <v-layout>
         <v-flex xs12>
           <v-card class="radius-border">
             <v-layout :class="{'ml-0 mr-5': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}">
               <v-container>
-                <v-flex xs12 mb-4 pt-5>
-                  <h1 class="{'display-1': $vuetify.breakpoint.smAndDown, 'display-2':$vuetify.breakpoint.smAndUp} text-uppercase primary--text font-weight-bold" v-if="cover" :class="{'shine': !cover.id}">{{cover.title}}</h1>
+                <v-flex xs12 mb-4 pt-5 v-if="cover">
+                  <h1 class="{'display-1': $vuetify.breakpoint.smAndDown, 'display-2':$vuetify.breakpoint.smAndUp} text-uppercase primary--text font-weight-bold" :class="{'shine': !cover.id}">{{cover.title}}</h1>
                 </v-flex>
-                <v-flex xs12 mb-4>
-                  <h2 class="title primary--text" v-if="cover" :class="{'shine': !cover.id}">{{cover.subtitle}}</h2>
+                <v-flex xs12 mb-4 >
+                  <h2 class="title primary--text" :class="{'shine': !cover.id}">{{cover.subtitle}}</h2>
                 </v-flex>
                 <div class="border"></div>
               </v-container>
             </v-layout>
             <v-layout :class="{'ml-0 mr-0': $vuetify.breakpoint.smAndDown, 'ml-5 mr-5': $vuetify.breakpoint.smAndUp}" wrap>
               <v-flex xs12 md6>
-                <v-container>
+                <v-container v-if="cover">
                   <v-card class="iframeWrapper" :class="{'shine': !cover.id}">
                     <iframe frameborder="0" v-if="cover.video" allowfullscreen="1" title="YouTube video player" width="100%" v-bind:src="'https://www.youtube.com/embed/' + cover.video + '?autoplay=0&amp;rel=0'"></iframe>
                   </v-card>
@@ -118,6 +118,18 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-container v-else>
+      <v-layout>
+        <v-flex xs12>
+          <v-card class="radius-border">
+            <v-container>
+              <h2>Sorry, this page doesn't exist!</h2>
+              <router-link to="/">Go home</router-link>
+            </v-container>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 <style>
@@ -214,20 +226,24 @@ import axios from 'axios'
 export default {
 	head() {
 		return {
-			title: this.cover.metatitle,
+			title: this.cover ? this.cover.metatitle : '404 - This page does not exist',
 			meta: [
-				{ hid: 'description', name: 'description', content: this.cover.metadescription }
+				{ hid: 'description', name: 'description', content: this.cover ? this.cover.metadescription : '404 - This page does not exist'}
 			]
 		}
 	},
   async asyncData({ store }) {
   	if (process.server) {
   		await store.dispatch('getsingleCover')
-    }
+    } 
   },
   computed: {
   	cover() {
+  		if (this.$store.getters.getsingleCover) {
   		return this.$store.getters.getsingleCover
+    	} else {
+        return undefined
+      }
   	},
     videoinfo() {
       if (this.cover.id !== null && this.cover.video != null) {
