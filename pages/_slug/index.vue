@@ -223,7 +223,7 @@ iframe {
 <script>
 import axios from 'axios'
 
-export default {
+export default {  
 	head() {
 		return {
 			title: this.cover ? this.cover.metatitle : '404 - This page does not exist',
@@ -236,11 +236,11 @@ export default {
   	if (process.server) {
   		await store.dispatch('getsingleCover')
     } 
-  },
+  }, 
   computed: {
   	cover() {
   		if (this.$store.getters.getsingleCover) {
-  		return this.$store.getters.getsingleCover
+  		  return this.$store.getters.getsingleCover
     	} else {
         return undefined
       }
