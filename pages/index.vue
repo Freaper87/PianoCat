@@ -26,7 +26,6 @@
   width: 100%;
   max-width: 385px;
 }
-
 </style>
 <script>
 import Card from '@/components/Card'

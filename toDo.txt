@@ -1,12 +1,13 @@
-done: - links in about page: make bold, change color
-- YouTube: Icon instead of Text
-done: - empty search after going to link
-- make h2 identical
-done: - add YT logo + link under sheet music video
-done: - rethink pateron nav logo (maybe bg: #2fb9f6, not outlined, not flat)
-done: - change most recent to Icon: star
-- make redirect if unknown route
-- make server side YT call on nuxt
+commands to use:
+// ssh over terminal
+user@h2817094.stratoserver.net
+
+// start sublime remote
+rsub for sublime remote
+
+// start pm2 after reboot
+pm2 start npm --name "your-app-alias" -- start
+ 
 // ping raspberrypi (raspberry.local || raspberry.localdomain)
 
 install newest node + npm:
